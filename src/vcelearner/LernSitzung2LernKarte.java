@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 public class LernSitzung2LernKarte {
 
     // Verbindungsvariablen
-    static Statement st = null;
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
@@ -71,7 +69,7 @@ public class LernSitzung2LernKarte {
     }
 
     // Datensätze aus der Datenbank auslesen anhand der lernsitzung_id
-    public static ArrayList<LernSitzung2LernKarte> getAllByLernSitzung_id(
+    public static ArrayList<LernSitzung2LernKarte> getAllByLernSitzung(
             LernSitzung lernsitzung) {
         ArrayList<LernSitzung2LernKarte> lS2lKs = new ArrayList<>();
         try {

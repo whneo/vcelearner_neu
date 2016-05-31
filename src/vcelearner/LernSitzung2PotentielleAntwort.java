@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 public class LernSitzung2PotentielleAntwort {
 
     // Verbindungsvariablen
-    static Statement st = null;
     static PreparedStatement pst = null;
     static ResultSet rst = null;
 
@@ -37,7 +35,7 @@ public class LernSitzung2PotentielleAntwort {
     public int getPotentielleAntwort_id() {
         return potentielleAntwort_id;
     }
-
+    
     // Datensätze in die Datenbank schreiben
     public static void insert(LernSitzung2PotentielleAntwort lS2pA) {
         try {
@@ -66,7 +64,7 @@ public class LernSitzung2PotentielleAntwort {
 
     // Datensätze aus der Datenbank auslesen anhand der lernsitzung_id
     public static ArrayList<LernSitzung2PotentielleAntwort>
-            getAllByLernSitzung_id(LernSitzung lernsitzung) {
+            getAllByLernSitzung(LernSitzung lernsitzung) {
         ArrayList<LernSitzung2PotentielleAntwort> lS2pAs = new ArrayList<>();
         try {
             Connection con = MySQLConnection.getConnection();
