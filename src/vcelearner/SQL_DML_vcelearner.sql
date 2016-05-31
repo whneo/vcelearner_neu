@@ -1,141 +1,133 @@
-/**
- * Author:  Rainer
- * Created: 26.05.2016
- */
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+-- Author:  Rainer
+-- Created: 26.05.2016
 
---
--- Datenbank: `vcelearner`
---
---------------------------------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `lernkarte`
---
-
-CREATE TABLE `lernkarte` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `frage` varchar(2048) DEFAULT NULL,
-  `schwierigkeitsgrad` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Datensätze für Dummydatenbank wiederherstellen
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `themenbereich`
+-- Datenbank `vcelearner` auswählen
 --
 
-CREATE TABLE `themenbereich` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `bezeichnung` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+use vcelearner;
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `lernkarte2themenbereich`
+-- Alle Datensätze in allen Tabellen löschen
 --
 
-CREATE TABLE `lernkarte2themenbereich` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `lernkarte_id` int(11) NOT NULL,
-  `themenbereich_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`lernkarte_id`) REFERENCES `lernkarte` (`id`),
-  FOREIGN KEY (`themenbereich_id`) REFERENCES `themenbereich` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+TRUNCATE lernkarte2themenbereich;
+TRUNCATE lernsitzung2potentielleantwort;
+TRUNCATE benutzer2lernkarte;
+TRUNCATE lernsitzung2lernkarte;
+DELETE FROM lernsitzung;
+DELETE FROM benutzer;
+DELETE FROM themenbereich;
+DELETE FROM potentielleantwort;
+DELETE FROM lernkarte;
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `potentielleantwort`
+-- AUTO_INCREMENT aller Tabellen mit Primärschlüsseln (ID) auf 1 setzen
 --
 
-CREATE TABLE `potentielleantwort` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `richtigkeit` enum('true','false') DEFAULT NULL,
-  `antwort` varchar(1024) DEFAULT NULL,
-  `lernkarte_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`lernkarte_id`) REFERENCES `lernkarte` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ALTER TABLE lernsitzung AUTO_INCREMENT=1;
+ALTER TABLE benutzer AUTO_INCREMENT=1;
+ALTER TABLE themenbereich AUTO_INCREMENT=1;
+ALTER TABLE potentielleantwort AUTO_INCREMENT=1;
+ALTER TABLE lernkarte AUTO_INCREMENT=1;
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `benutzer`
+-- Alle Datensätze der sieben Themenbereiche in die Datenbank einfügen
 --
 
-CREATE TABLE `benutzer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(45) NOT NULL UNIQUE,
-  `passwort` varchar(45) NOT NULL,
-  `vorname` varchar(45) NOT NULL,
-  `nachname` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO themenbereich VALUES (NULL, "Java Basics");
+INSERT INTO themenbereich VALUES (NULL, "Working with Java data types");
+INSERT INTO themenbereich VALUES (NULL, "Methods and Encapsulation");
+INSERT INTO themenbereich VALUES (NULL, "String, StringBuilder, Arrays and ArrayList");
+INSERT INTO themenbereich VALUES (NULL, "Flow Control");
+INSERT INTO themenbereich VALUES (NULL, "Working with inheritance");
+INSERT INTO themenbereich VALUES (NULL, "Exception handling");
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `lernsitzung`
+-- Vier komplette Lernkarten in die Datenbank einfügen
 --
 
-CREATE TABLE `lernsitzung` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `typ` enum('Test','Lern','LernR','ungewertet') DEFAULT NULL,
-  `datum` DATE NOT NULL,
-  `benutzer_id` int(11) NOT NULL,  
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Komplette Lernkarte mit Primärschlüssel 1 (ID)
+INSERT INTO lernkarte VALUES (NULL, "Wie heißt dieses Projekt?", 0);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 1, 1);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 1, 2);
+INSERT INTO potentielleantwort VALUES(NULL, "true", "vcelearner", 1);
+INSERT INTO potentielleantwort VALUES(NULL, "false", "Taschenrechner", 1);
+-- Komplette Lernkarte mit Primärschlüssel 2 (ID)
+INSERT INTO lernkarte VALUES (NULL, "Ist das Java?", 3);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 2, 3);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 2, 5);
+INSERT INTO potentielleantwort VALUES(NULL, "true", "Natürlich!", 2);
+INSERT INTO potentielleantwort VALUES(NULL, "false", "Nö, Shakespeare", 2);
+-- Komplette Lernkarte mit Primärschlüssel 3 (ID)
+INSERT INTO lernkarte VALUES (NULL, "Bist du Fachinformatiker?", 6);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 3, 2);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 3, 4);
+INSERT INTO potentielleantwort VALUES(NULL, "true", "Ich will es werden.", 3);
+INSERT INTO potentielleantwort VALUES(NULL, "false", "Ja, schon seit 30 Jahren.", 3);
+-- Komplette Lernkarte mit Primärschlüssel 4 (ID)
+INSERT INTO lernkarte VALUES (NULL, "Hast du noch Zeit für eine Frage?", 9);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 4, 6);
+INSERT INTO lernkarte2themenbereich VALUES(NULL, 4, 7);
+INSERT INTO potentielleantwort VALUES(NULL, "true", "Klar, eine geht noch!", 4);
+INSERT INTO potentielleantwort VALUES(NULL, "false", "Nö, heute nicht mehr.", 4);
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `lernsitzung2potentielleantwort`
+-- Vier komplette Benutzer in die Datenbank einfügen
 --
 
-CREATE TABLE `lernsitzung2potentielleantwort` (
-  `lernsitzung_id` int(11) NOT NULL,
-  `potentielleantwort_id` int(11) NOT NULL,
-  PRIMARY KEY (`lernsitzung_id`,`potentielleantwort_id`),
-  FOREIGN KEY (`lernsitzung_id`) REFERENCES `lernsitzung` (`id`),
-  FOREIGN KEY (`potentielleantwort_id`) REFERENCES `potentielleantwort` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- Kompletter Benutzer mit Primärschlüssel 1 (ID)
+INSERT INTO benutzer VALUES (NULL, "chef", "abc", "Klaus", "Maier");
+INSERT INTO benutzer2lernkarte VALUES(1, 4, "true");
+-- Kompletter Benutzer mit Primärschlüssel 2 (ID)
+INSERT INTO benutzer VALUES (NULL, "teilnehmer", "123", "Gabi", "Schmidt");
+INSERT INTO benutzer2lernkarte VALUES(2, 3, "false");
+-- Kompletter Benutzer mit Primärschlüssel 3 (ID)
+INSERT INTO benutzer VALUES (NULL, "klassenclown", "blabla", "Steffen", "Lehmann");
+INSERT INTO benutzer2lernkarte VALUES(3, 2, "true");
+-- Kompletter Benutzer mit Primärschlüssel 4 (ID)
+INSERT INTO benutzer VALUES (NULL, "fauli", "schnarch", "Steffi", "Schulz");
+INSERT INTO benutzer2lernkarte VALUES(4, 1, "false");
 
 --------------------------------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `benutzer2lernkarte`
+-- 4 komplette Lernsitzungen in die Datenbank einfügen
 --
 
-CREATE TABLE `benutzer2lernkarte` (
-  `benutzer_id` int(11) NOT NULL,
-  `lernkarte_id` int(11) NOT NULL,
-  `wiedervorlage` enum('true','false') DEFAULT NULL,
-  PRIMARY KEY (`benutzer_id`,`lernkarte_id`),
-  FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`),
-  FOREIGN KEY (`lernkarte_id`) REFERENCES `lernkarte` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---------------------------------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `lernsitzung2lernkarte`
---
-
-CREATE TABLE `lernsitzung2lernkarte` (
-  `lernsitzung_id` int(11) NOT NULL,
-  `lernkarte_id` int(11) NOT NULL,
-  `gemogelt` enum('true','false') DEFAULT NULL,
-  PRIMARY KEY (`lernsitzung_id`,`lernkarte_id`),
-  FOREIGN KEY (`lernsitzung_id`) REFERENCES `lernsitzung` (`id`),
-  FOREIGN KEY (`lernkarte_id`) REFERENCES `lernkarte` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+-- Komplette Lernsitzung mit Primärschlüssel 1 (ID)
+INSERT INTO lernsitzung VALUES (NULL, "Test", "1900-01-01", 4);
+INSERT INTO lernsitzung2lernkarte VALUES (1, 1, "false");
+INSERT INTO lernsitzung2potentielleantwort VALUES (1, 1);
+INSERT INTO lernsitzung2potentielleantwort VALUES (1, 2);
+-- Komplette Lernsitzung mit Primärschlüssel 2 (ID)
+INSERT INTO lernsitzung VALUES (NULL, "Lern", "1930-03-03", 3);
+INSERT INTO lernsitzung2lernkarte VALUES (2, 2, "true");
+INSERT INTO lernsitzung2potentielleantwort VALUES (2, 3);
+INSERT INTO lernsitzung2potentielleantwort VALUES (2, 4);
+-- Komplette Lernsitzung mit Primärschlüssel 3 (ID)
+INSERT INTO lernsitzung VALUES (NULL, "LernR", "1960-06-06", 2);
+INSERT INTO lernsitzung2lernkarte VALUES (3, 3, "false");
+INSERT INTO lernsitzung2potentielleantwort VALUES (3, 5);
+INSERT INTO lernsitzung2potentielleantwort VALUES (3, 6);
+-- Komplette Lernsitzung mit Primärschlüssel 4 (ID)
+INSERT INTO lernsitzung VALUES (NULL, "ungewertet", "1990-09-09", 1);
+INSERT INTO lernsitzung2lernkarte VALUES (4, 4, "true");
+INSERT INTO lernsitzung2potentielleantwort VALUES (4, 7);
+INSERT INTO lernsitzung2potentielleantwort VALUES (4, 8);
 --------------------------------------------------------------------------------
