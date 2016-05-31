@@ -134,8 +134,8 @@ public class Benutzer {
             ex.printStackTrace();
         } finally {
             try {
-                if (st != null) {
-                    st.close();
+                if (pst != null) {
+                    pst.close();
                 }
                 if (rst != null) {
                     rst.close();
