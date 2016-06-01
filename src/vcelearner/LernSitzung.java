@@ -32,9 +32,8 @@ public class LernSitzung {
         this.benutzer_id = benutzer_id;
     }
 
-    public LernSitzung(String typ, String datum, int benutzer_id) {
+    public LernSitzung(String typ, int benutzer_id) {
         this.typ = typ;
-        this.datum = datum;
         this.benutzer_id = benutzer_id;
     }
 
@@ -66,12 +65,12 @@ public class LernSitzung {
             // VERBINDUNG AUFBBAUEN:
             Connection con = MySQLConnection.getConnection();
             // STATEMENT
-            String Sql = "INSERT INTO lernsitzung VALUES (null, ?, ?, ?)";
+            String Sql = "INSERT INTO lernsitzung VALUES (null, ?, "
+                    + "CURRENT_TIMESTAMP, ?)";
             pst = con.prepareStatement(Sql,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, "" + lS.getTyp());
-            pst.setString(2, lS.getDatum());
-            pst.setInt(3, lS.getBenutzer_id());
+            pst.setInt(2, lS.getBenutzer_id());
             pst.executeUpdate();
             rst = pst.getGeneratedKeys();
             while (rst.next()) {

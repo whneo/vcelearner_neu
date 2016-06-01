@@ -111,22 +111,22 @@ INSERT INTO benutzer2lernkarte VALUES(4, 1, "false");
 --
 
 -- Komplette Lernsitzung mit Primärschlüssel 1 (ID)
-INSERT INTO lernsitzung VALUES (NULL, "Test", "1900-01-01", 4);
+INSERT INTO lernsitzung VALUES (NULL, "Test", CURRENT_TIMESTAMP, 4);
 INSERT INTO lernsitzung2lernkarte VALUES (1, 1, "false");
 INSERT INTO lernsitzung2potentielleantwort VALUES (1, 1);
 INSERT INTO lernsitzung2potentielleantwort VALUES (1, 2);
 -- Komplette Lernsitzung mit Primärschlüssel 2 (ID)
-INSERT INTO lernsitzung VALUES (NULL, "Lern", "1930-03-03", 3);
+INSERT INTO lernsitzung VALUES (NULL, "Lern", CURRENT_TIMESTAMP, 3);
 INSERT INTO lernsitzung2lernkarte VALUES (2, 2, "true");
 INSERT INTO lernsitzung2potentielleantwort VALUES (2, 3);
 INSERT INTO lernsitzung2potentielleantwort VALUES (2, 4);
 -- Komplette Lernsitzung mit Primärschlüssel 3 (ID)
-INSERT INTO lernsitzung VALUES (NULL, "LernR", "1960-06-06", 2);
+INSERT INTO lernsitzung VALUES (NULL, "LernR", CURRENT_TIMESTAMP, 2);
 INSERT INTO lernsitzung2lernkarte VALUES (3, 3, "false");
 INSERT INTO lernsitzung2potentielleantwort VALUES (3, 5);
 INSERT INTO lernsitzung2potentielleantwort VALUES (3, 6);
 -- Komplette Lernsitzung mit Primärschlüssel 4 (ID)
-INSERT INTO lernsitzung VALUES (NULL, "ungewertet", "1990-09-09", 1);
+INSERT INTO lernsitzung VALUES (NULL, "ungewertet", CURRENT_TIMESTAMP, 1);
 INSERT INTO lernsitzung2lernkarte VALUES (4, 4, "true");
 INSERT INTO lernsitzung2potentielleantwort VALUES (4, 7);
 INSERT INTO lernsitzung2potentielleantwort VALUES (4, 8);

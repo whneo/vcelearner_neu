@@ -90,7 +90,7 @@ CREATE TABLE `benutzer` (
 CREATE TABLE `lernsitzung` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `typ` enum('Test','Lern','LernR','ungewertet') DEFAULT NULL,
-  `datum` DATE NOT NULL,
+  `datum` DATETIME NOT NULL,
   `benutzer_id` int(11) NOT NULL,  
   PRIMARY KEY (`id`),
   FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`)

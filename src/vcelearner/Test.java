@@ -87,5 +87,12 @@ public class Test {
 //    System.out.println(lS2lK.toString());
 //    System.out.println(lS2pA.toString());
 //    System.out.println(lS2pA1.toString());
+
+        LernSitzung ls = new LernSitzung("Lern", 2);
+        LernSitzung.insert(ls);
+        
+        ArrayList<LernSitzung> lss = new ArrayList<>(LernSitzung.getAll());
+        
+        System.out.println(lss);
     }
 }

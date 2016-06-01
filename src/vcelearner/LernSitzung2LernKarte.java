@@ -82,7 +82,8 @@ public class LernSitzung2LernKarte {
             while (rst.next()) {
                 LernSitzung2LernKarte lS2lK = new LernSitzung2LernKarte(
                         rst.getInt("lernsitzung_id"),
-                        rst.getInt("lernkarte_id"), rst.getBoolean("gemogelt"));
+                        rst.getInt("lernkarte_id"), Boolean.parseBoolean(
+                                rst.getString("gemogelt")));
                 lS2lKs.add(lS2lK);
             }
         } catch (SQLException ex) {
